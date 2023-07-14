@@ -1,4 +1,4 @@
-type NearEarthObjects = object[]; 
+export type NearEarthObjects = object[]; 
 
 export interface AxiosResponse {
     data: NearEarthObjects | undefined;
