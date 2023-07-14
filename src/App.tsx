@@ -1,10 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { getNeoInfo } from './data/data-about-neo';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+     
+    console.log(getNeoInfo('2015-09-07', '2015-09-10'));
+  }, []);
 
   return (
     <>
