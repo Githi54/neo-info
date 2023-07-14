@@ -9,7 +9,7 @@ export const getNeoInfo = async (startDate: string) => {
       `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&api_key=${API_KEY}`
     );
 
-    return response?.data;
+    return response?.data?.near_earth_objects;
   } catch (error) {
     console.log(error);
   }
