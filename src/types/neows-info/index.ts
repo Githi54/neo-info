@@ -1,9 +1,9 @@
-interface Kilometers {
+interface EstimatedDiametrMax {
   estimated_diameter_max: number;
 }
 
 interface EstimatedDiameter {
-  kilometers: Kilometers;
+  kilometers: EstimatedDiametrMax;
 }
 
 interface MissDistance {
