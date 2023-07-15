@@ -14,14 +14,17 @@ export const NeowsList: React.FC<Props> = ({ neows }) => {
   );
 
   useEffect(() => {
-    setInterval(() => {
+    const getDates = () => {
       if (sliceSegment[1] === datesArray.length) {
         setSliceSegment([0, 6]);
       } else {
         setSliceSegment([sliceSegment[0] + 1, sliceSegment[1] + 1]);
       }
       setDates(datesArray.slice(sliceSegment[0], sliceSegment[1]));
-    }, 5000);
+    };
+
+    const timeoutId = setInterval(getDates, 5000);
+    return () => clearTimeout(timeoutId);
   }, [datesArray, sliceSegment]);
 
   return (
