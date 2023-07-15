@@ -1,7 +1,7 @@
 import { NearEarthObjects } from "../neows-info";
 
-interface ResponseData {
-  near_earth_objects: NearEarthObjects[];
+export interface ResponseData {
+  near_earth_objects: NearEarthObjects | undefined;
 }
 
 export interface AxiosResponse {
