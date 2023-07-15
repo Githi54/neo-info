@@ -1,30 +1,42 @@
+import { useEffect, useState } from "react";
 import { NearEarthObjects } from "../../types/neows-info";
+import { NeoItem } from "../neo-item";
 
 interface Props {
-  neows: NearEarthObjects[];
+  neows: NearEarthObjects;
 }
 
 export const NeowsList: React.FC<Props> = ({ neows }) => {
+  const [sliceSegment, setSliceSegment] = useState<number[]>([0, 6]);
+  const datesArray = Object.keys(neows).sort();
+  const [dates, setDates] = useState<string[]>(
+    datesArray.slice(sliceSegment[0], sliceSegment[1])
+  );
+
+  useEffect(() => {
+    setInterval(() => {
+      if (sliceSegment[1] === datesArray.length) {
+        setSliceSegment([0, 6]);
+      } else {
+        setSliceSegment([sliceSegment[0] + 1, sliceSegment[1] + 1]);
+      }
+      setDates(datesArray.slice(sliceSegment[0], sliceSegment[1]));
+    }, 5000);
+  }, [datesArray, sliceSegment]);
+
   return (
     <table className="table is-narrow is-fullwidth">
       <thead>
         <tr>
           <th>#</th>
-          <th>
-            <span className="icon">
-              <i className="fas fa-check" />
-            </span>
-          </th>
           <th>Date</th>
           <th> </th>
         </tr>
       </thead>
 
       <tbody>
-        {neows.length > 0 && neows.map((neow, i) => (
-          <tr key={i}>
-            <td className="is-vcentered">{neow["2023-07-01"].id}</td>
-          </tr>
+        {dates.map((date, index) => (
+          <NeoItem key={date} date={date} index={index} />
         ))}
       </tbody>
 
