@@ -1,13 +1,26 @@
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 
 interface Props {
   date: string;
   index: number;
+  setSelectedDay: (day: string) => void;
+  isVisible: boolean;
+  setIsVisible: (param: boolean) => void;
+  selectedDate: string;
 }
 
-export const NeoItem: React.FC<Props> = ({ date, index }) => {
-  const [isVisible, setIsVisible] = useState(true);
-  const handleClick = useCallback(() => setIsVisible(!isVisible), [isVisible]);
+export const NeoItem: React.FC<Props> = ({
+  date,
+  index,
+  setSelectedDay,
+  isVisible,
+  setIsVisible,
+  selectedDate,
+}) => {
+  const handleClick = useCallback(() => {
+    setIsVisible(!isVisible);
+    setSelectedDay(date);
+  }, [setIsVisible, isVisible, setSelectedDay, date]);
 
   return (
     <tr>
@@ -23,7 +36,9 @@ export const NeoItem: React.FC<Props> = ({ date, index }) => {
           onClick={() => handleClick()}
         >
           <span className="material-symbols-outlined">
-            {isVisible ? "visibility" : "visibility_off"}
+            {isVisible && selectedDate === date
+              ? "visibility_off"
+              : "visibility"}
           </span>
         </button>
       </td>
