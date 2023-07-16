@@ -12,7 +12,6 @@
 
 ### Initial data
 - use `api.nasa.gov`
-- get the API-KEY=`PXjG2k4gTiQT1uLnemaLCDAX3RDa7jRbL69WIROx`, if expired - please register
 - documentation: https://api.nasa.gov - Browse APIs - Asteroids NeoWs
  
  
@@ -27,8 +26,6 @@ Every element should contain the following data:
  
 Elements with the 2 highest numbers of hazard objects should have red background and updated with each new element added.
 
-### Submit your work
-- send link to the git repo
-- send link to github pages (to see live demo)
+### Link for DEMO
 
-**PS:** Estimated time 4-6 hours(could be less or more depended on code quality)
+Look results in [Demo Link](https://githi54.github.io/neo-info/)
