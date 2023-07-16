@@ -31,8 +31,6 @@ export const HomePage = () => {
     }
   }, [neows, selectedDay]);
 
-  console.log(selectedDayInfo);
-
   return (
     <>
       <div className="section">
