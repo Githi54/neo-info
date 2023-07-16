@@ -4,9 +4,19 @@ import { NeoItem } from "../neo-item";
 
 interface Props {
   neows: NearEarthObjects;
+  setSelectedDay: (date: string) => void;
+  isVisible: boolean;
+  setIsVisible: (param: boolean) => void;
+  selectedDate: string;
 }
 
-export const NeowsList: React.FC<Props> = ({ neows }) => {
+export const NeowsList: React.FC<Props> = ({
+  neows,
+  setSelectedDay,
+  isVisible,
+  setIsVisible,
+  selectedDate,
+}) => {
   const [sliceSegment, setSliceSegment] = useState<number[]>([0, 6]);
   const datesArray = Object.keys(neows).sort();
   const [dates, setDates] = useState<string[]>(
@@ -39,7 +49,15 @@ export const NeowsList: React.FC<Props> = ({ neows }) => {
 
       <tbody>
         {dates.map((date, index) => (
-          <NeoItem key={date} date={date} index={index} />
+          <NeoItem
+            key={date}
+            date={date}
+            index={index}
+            setSelectedDay={setSelectedDay}
+            isVisible={isVisible}
+            setIsVisible={setIsVisible}
+            selectedDate={selectedDate}
+          />
         ))}
       </tbody>
     </table>

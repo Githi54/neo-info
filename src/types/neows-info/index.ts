@@ -19,15 +19,11 @@ interface CloseApproach {
   relative_velocity: Relative_velocity;
 }
 
-interface CloseApproachObj {
-  0: CloseApproach;
-}
-
 export interface NeowInfo {
   id: string;
   estimated_diameter: EstimatedDiameter;
   is_potentially_hazardous_asteroid: boolean;
-  close_approach_data: CloseApproachObj[];
+  close_approach_data: CloseApproach[];
 }
 
 export interface NearEarthObjects {
