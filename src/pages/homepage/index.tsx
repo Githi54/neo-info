@@ -3,6 +3,7 @@ import { getNeoInfo } from "../../data/data-about-neo";
 import { NearEarthObjects, NeowInfo } from "../../types/neows-info";
 import { NeowsList } from "../../components/neows-list";
 import { NeoModal } from "../../components/neo-modal";
+import { Loader } from "../../components/loading";
 
 export const HomePage = () => {
   const [neows, setNeows] = useState<NearEarthObjects | null>(null);
@@ -48,7 +49,7 @@ export const HomePage = () => {
                   selectedDate={selectedDay}
                 />
               ) : (
-                <p>Loading</p>
+                <Loader />
               )}
             </div>
           </div>
