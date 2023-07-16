@@ -19,10 +19,13 @@ export const NeowsList: React.FC<Props> = ({
 }) => {
   const [sliceSegment, setSliceSegment] = useState<number[]>([0, 6]);
   const datesArray = Object.keys(neows).sort();
-  const [dates, setDates] = useState<string[]>(
-    datesArray.slice(sliceSegment[0], sliceSegment[1])
-  );
   const [dangerDates, setDangerDates] = useState<string[]>([]);
+  const [dates, setDates] = useState<string[]>([
+    ...dangerDates,
+    ...datesArray
+      .filter((date) => !dangerDates.includes(date))
+      .slice(sliceSegment[0], sliceSegment[1] - dangerDates.length),
+  ]);
 
   useEffect(() => {
     for (const date in neows) {
@@ -43,12 +46,12 @@ export const NeowsList: React.FC<Props> = ({
       } else {
         setSliceSegment([sliceSegment[0] + 1, sliceSegment[1] + 1]);
       }
-
-      if (dangerDates.length > 0) {
-        setDates([...dangerDates, ...datesArray.filter(date => !dangerDates.includes(date)).slice(sliceSegment[0], sliceSegment[1] - dangerDates.length)]);
-      } else {
-        setDates(datesArray.slice(sliceSegment[0], sliceSegment[1]));
-      }
+      setDates([
+        ...dangerDates,
+        ...datesArray
+          .filter((date) => !dangerDates.includes(date))
+          .slice(sliceSegment[0], sliceSegment[1] - dangerDates.length),
+      ]);
     };
 
     const timeoutId = setInterval(getDates, 5000);
@@ -75,6 +78,7 @@ export const NeowsList: React.FC<Props> = ({
             isVisible={isVisible}
             setIsVisible={setIsVisible}
             selectedDate={selectedDate}
+            dangerDates={dangerDates}
           />
         ))}
       </tbody>
