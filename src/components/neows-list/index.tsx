@@ -22,6 +22,19 @@ export const NeowsList: React.FC<Props> = ({
   const [dates, setDates] = useState<string[]>(
     datesArray.slice(sliceSegment[0], sliceSegment[1])
   );
+  const [dangerDates, setDangerDates] = useState<string[]>([]);
+
+  useEffect(() => {
+    for (const date in neows) {
+      const numberOfPotentialHazardous = neows[
+        date as keyof NearEarthObjects
+      ].filter((neowInfo) => neowInfo.is_potentially_hazardous_asteroid).length;
+
+      if (numberOfPotentialHazardous >= 2 && !dangerDates.includes(date)) {
+        setDangerDates([...dangerDates, date]);
+      }
+    }
+  }, [dangerDates, neows]);
 
   useEffect(() => {
     const getDates = () => {
@@ -30,12 +43,17 @@ export const NeowsList: React.FC<Props> = ({
       } else {
         setSliceSegment([sliceSegment[0] + 1, sliceSegment[1] + 1]);
       }
-      setDates(datesArray.slice(sliceSegment[0], sliceSegment[1]));
+
+      if (dangerDates.length > 0) {
+        setDates([...dangerDates, ...datesArray.filter(date => !dangerDates.includes(date)).slice(sliceSegment[0], sliceSegment[1] - dangerDates.length)]);
+      } else {
+        setDates(datesArray.slice(sliceSegment[0], sliceSegment[1]));
+      }
     };
 
     const timeoutId = setInterval(getDates, 5000);
     return () => clearTimeout(timeoutId);
-  }, [datesArray, sliceSegment]);
+  }, [dangerDates, datesArray, sliceSegment]);
 
   return (
     <table className="table is-narrow is-fullwidth">
